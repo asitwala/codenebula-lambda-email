@@ -2,7 +2,8 @@
 
 const aws = require('aws-sdk');
 const ses = new aws.SES();
-const customEmail = process.env.EMAIL;
+const customFromEmail = process.env.FROM_EMAIL;
+const customToEmail = process.env.TO_EMAIL;
 const customDomain = process.env.DOMAIN;
 
 function createResponse (code, payload) {
@@ -36,19 +37,22 @@ function getEmailParams (body) {
   }
 
   return {
-    Source: customEmail,
-    Destination: { ToAddresses: [customEmail] },
+    Source: customFromEmail,
+    Destination: { ToAddresses: [customToEmail] },
     ReplyToAddresses: [email],
     Message: {
       Body: {
         Text: {
           Charset: 'UTF-8',
-          Data: `Message sent from email ${email} by ${name} \nContent: ${content}`
+          Data: `You've received a new message on the Precision Lifts website!\n
+            Name: ${name} \n
+            Email: ${email}\n
+            Message: ${content}\n`
         }
       },
       Subject: {
         Charset: 'UTF-8',
-        Data: `[CodeNebula] Message from ${name} (${email})`
+        Data: `[Precision Lifts] Message from ${name} (${email})`
       }
     }
   }

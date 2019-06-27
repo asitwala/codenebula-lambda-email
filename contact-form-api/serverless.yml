@@ -13,7 +13,8 @@ provider:
   region: us-east-1
   environment:
     NODE_ENV: ${self:custom.secrets.NODE_ENV}
-    EMAIL: ${self:custom.secrets.EMAIL}
+    FROM_EMAIL: ${self:custom.secrets.FROM_EMAIL}
+    TO_EMAIL: ${self:custom.secrets.TO_EMAIL}
     DOMAIN: ${self:custom.secrets.DOMAIN}
   iamRoleStatements:
     - Effect: "Allow"
